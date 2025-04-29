@@ -1,4 +1,4 @@
-/*
+/**
  * @brief: Clase que implenta el tipo de dato "Nodo", que contendrá el dato como un entero 
  */
 public class Nodo {

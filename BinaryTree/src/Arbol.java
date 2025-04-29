@@ -1,4 +1,4 @@
-/*
+/**
  * @brief: Clase que implementa la estructura árbol y que contiene el nodo (de partida) raíz
  */
 public class Arbol {
@@ -12,6 +12,19 @@ public class Arbol {
        return InsertarRec(dato, nodo_raiz);
     }
 
+/**
+ * @brief Inserta un dato en el árbol de manera recursiva.
+ * 
+ * Este método intenta insertar un nuevo dato en el árbol binario
+ * siguiendo las reglas de inserción. Si el nodo actual tiene un hijo
+ * izquierdo o derecho vacío, el dato se inserta allí. Si ambos hijos
+ * están ocupados, se realiza una llamada recursiva para intentar
+ * insertar el dato en los subárboles izquierdo o derecho.
+ * 
+ * @param dato El valor entero que se desea insertar en el árbol.
+ * @param pater El nodo actual en el que se está intentando insertar el dato.
+ * @return true si el dato fue insertado exitosamente, false en caso contrario.
+ */
     public boolean InsertarRec(int dato, Nodo pater) {
         if (pater.getHijoIzq() == null) {
             pater.setHijoIzq(dato);
@@ -34,6 +47,18 @@ public class Arbol {
         return BusquedaRec(dato, nodo_raiz);
     }
 
+/**
+ * @brief Busca un dato en el árbol de manera recursiva.
+ * 
+ * Este método recorre el árbol binario de forma recursiva para buscar
+ * un valor específico. Compara el dato buscado con el valor del nodo actual.
+ * Si el dato coincide, retorna true. Si no, continúa la búsqueda en los
+ * subárboles izquierdo y derecho. Si no encuentra el dato, retorna false.
+ * 
+ * @param dato El valor entero que se desea buscar en el árbol.
+ * @param nodo_busqueda El nodo actual en el que se está realizando la búsqueda.
+ * @return true si el dato fue encontrado, false en caso contrario.
+ */
     public boolean BusquedaRec(int dato, Nodo nodo_busqueda) {
         if (nodo_busqueda.getDato() == dato) {
             return true;
