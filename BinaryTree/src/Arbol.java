@@ -34,11 +34,15 @@ public class Arbol {
             pater.setHijoDch(dato);
             return true;
         }
+        if (pater.getHijoIzq().getHijoIzq() == null || pater.getHijoIzq().getHijoDch() == null) {
         if (InsertarRec(dato, pater.getHijoIzq()) == true) {
             return true;
+            }
         }
+        else {
         if (InsertarRec(dato, pater.getHijoDch()) == true) {
             return true;
+            }
         }
         return false;
     }
