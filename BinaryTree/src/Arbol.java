@@ -25,7 +25,7 @@ public class Arbol {
  * @param pater El nodo actual en el que se está intentando insertar el dato.
  * @return true si el dato fue insertado exitosamente, false en caso contrario.
  */
-    public boolean InsertarRec(int dato, Nodo pater) {
+    private boolean InsertarRec(int dato, Nodo pater) {
         if (pater.getHijoIzq() == null) {
             pater.setHijoIzq(dato);
             return true;
@@ -59,7 +59,7 @@ public class Arbol {
  * @param nodo_busqueda El nodo actual en el que se está realizando la búsqueda.
  * @return true si el dato fue encontrado, false en caso contrario.
  */
-    public boolean BusquedaRec(int dato, Nodo nodo_busqueda) {
+    private boolean BusquedaRec(int dato, Nodo nodo_busqueda) {
         if (nodo_busqueda.getDato() == dato) {
             return true;
         }
@@ -79,7 +79,7 @@ public class Arbol {
         RecorridoRecursivo(nodo_raiz);
     }
 
-    public void RecorridoRecursivo(Nodo nodo_analisis) {
+    private void RecorridoRecursivo(Nodo nodo_analisis) {
         if (nodo_analisis == nodo_raiz) {
             System.out.println("¡Antes que nada estamos ante la hoja rey! ¡El nodo raíz! ¡Alabado!");
         }
