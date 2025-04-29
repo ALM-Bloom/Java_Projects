@@ -74,4 +74,28 @@ public class Arbol {
         }
         return false;
     }
+
+    public void RecorridoNivel() {
+        RecorridoRecursivo(nodo_raiz);
+    }
+
+    public void RecorridoRecursivo(Nodo nodo_analisis) {
+        if (nodo_analisis == nodo_raiz) {
+            System.out.println("¡Antes que nada estamos ante la hoja rey! ¡El nodo raíz! ¡Alabado!");
+        }
+        if (nodo_analisis.getHijoIzq() != null && nodo_analisis.getHijoDch() != null) {
+            System.out.println("El nodo " + nodo_analisis.getDato() + " tiene por la izquierda a " + nodo_analisis.getHijoIzq().getDato() + " y por la derecha " + 
+            nodo_analisis.getHijoDch().getDato());
+        }
+        else if (nodo_analisis.getHijoIzq() != null && nodo_analisis.getHijoDch() == null) {
+            System.out.println("El nodo " + nodo_analisis.getDato() + " solo tiene por la izquierda a " + nodo_analisis.getHijoIzq().getDato());
+        }
+        else if (nodo_analisis.getHijoIzq() == null && nodo_analisis.getHijoDch() != null) {
+            System.out.println("El nodo " + nodo_analisis.getDato() + " solo tiene por la derecha a " + 
+            nodo_analisis.getHijoDch().getDato());
+        }
+        else {
+            System.out.println("El nodo " + nodo_analisis.getDato() + " es un nodo hoja");
+        }
+    }
 }
