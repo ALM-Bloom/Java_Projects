@@ -21,5 +21,7 @@ public class App {
         vicencio.Insertar(5);
         vicencio.Insertar(11);
         vicencio.Insertar(4);
+
+        vicencio.RecorridoNivel();
     }
 }
