@@ -11,6 +11,15 @@
  */
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        Arbol vicencio = new Arbol(2);
+
+        vicencio.Insertar(7);
+        vicencio.Insertar(5);
+        vicencio.Insertar(2);
+        vicencio.Insertar(6);
+        vicencio.Insertar(9);
+        vicencio.Insertar(5);
+        vicencio.Insertar(11);
+        vicencio.Insertar(4);
     }
 }
