@@ -75,6 +75,32 @@ public class Arbol {
         return BusquedaRec(dato, nodo_busqueda.getHijoIzq()) || BusquedaRec(dato, nodo_busqueda.getHijoDch());
     }
 
+    public boolean Eliminar(int dato) {
+        return EliminarRec(dato, nodo_raiz, null);
+    } 
+
+    private boolean EliminarRec(int dato, Nodo nodo_deleteado, Nodo pater) {
+        if (nodo_deleteado == null) {
+            return false;
+        }
+        if (nodo_deleteado.getDato() == dato) {
+            if (nodo_deleteado.getHijoIzq() == null && nodo_deleteado.getHijoDch() == null ) {
+            if (pater.getHijoIzq() == nodo_deleteado) {
+                pater.setHijoIzq(null);
+            } 
+            else if (pater.getHijoDch() == nodo_deleteado) {
+                pater.setHijoDch(null);
+            }
+            return true;
+        } else {
+            System.out.println("Esta versión solo permite la eliminación de nodos hojas");
+            return false;
+            }
+        }
+        return EliminarRec(dato, nodo_deleteado.getHijoIzq(), nodo_deleteado) ||
+               EliminarRec(dato, nodo_deleteado.getHijoDch(), nodo_deleteado);
+    }
+
     public void RecorridoNivel() {
         RecorridoRecursivo(nodo_raiz);
     }

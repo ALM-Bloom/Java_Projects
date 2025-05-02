@@ -25,13 +25,15 @@ public class App {
         boolean encendido = true;
         while (encendido) {
             System.out.println("Si deseas dejar de crear nodos introduce: 'f' | Introduce un entero que será el valor del nodo: ");
-            if (input.next().equals("f")) {
+            String exit = input.next();
+            if (exit.equals("f")) {
                 break;
-            }
-            dato = Integer.parseInt(input.next());
-            vicencio.Insertar(dato);
-            System.out.println("Resultado del árbol hasta ahora: ");
-            vicencio.RecorridoNivel();
+            } else {
+                dato = Integer.parseInt(exit);
+                vicencio.Insertar(dato);
+                System.out.println("Resultado del árbol hasta ahora: ");
+                vicencio.RecorridoNivel();
+            } 
         }
 
         OUTER:
@@ -55,6 +57,14 @@ public class App {
                     dato = input.nextInt();
                     vicencio.Insertar(dato);
                     break;
+                case 3:
+                    System.out.println("Introduce el dato del nodo que deseas eliminar: ");
+                    dato = input.nextInt();
+                    if (vicencio.Eliminar(dato)) {
+                        System.out.println("El Nodo ha sido eliminado");
+                    } else {
+                        System.out.println("Ese nodo no existe en el árbol");
+                    }       break;
                 case 4:
                     break OUTER;
                 default:
