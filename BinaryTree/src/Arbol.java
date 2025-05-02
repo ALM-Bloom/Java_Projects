@@ -1,3 +1,8 @@
+
+import java.util.AbstractMap.SimpleEntry;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @brief: Clase que implementa la estructura árbol y que contiene el nodo (de partida) raíz
  */
@@ -84,6 +89,18 @@ public class Arbol {
         return EliminarRec(dato, nodo_raiz, null);
     } 
 
+    /**
+     * Método recursivo para eliminar un nodo hoja de un árbol binario.
+     *
+     * @param dato El valor del nodo que se desea eliminar.
+     * @param nodo_deleteado El nodo actual que se está evaluando para eliminación.
+     * @param pater El nodo padre del nodo actual.
+     * @return true si el nodo hoja fue eliminado exitosamente, false en caso contrario.
+     *
+     * @note Esta versión del método solo permite la eliminación de nodos que son hojas.
+     *       Si el nodo a eliminar tiene hijos, no se realizará la eliminación y se mostrará
+     *       un mensaje en la consola.
+     */
     private boolean EliminarRec(int dato, Nodo nodo_deleteado, Nodo pater) {
         if (nodo_deleteado == null) {
             return false;
@@ -106,30 +123,44 @@ public class Arbol {
                EliminarRec(dato, nodo_deleteado.getHijoDch(), nodo_deleteado);
     }
 
+    /**
+     * @brief Realiza un recorrido por niveles (Breadth-First Search) del árbol binario.
+     * 
+     * Este método utiliza una cola para recorrer el árbol binario nivel por nivel,
+     * comenzando desde la raíz. Imprime el nivel actual y los datos de cada nodo
+     * en el orden en que se visitan. Si un nodo es nulo, imprime "[.]".
+     * 
+     * @details 
+     * - Se utiliza una cola de pares (nodo, nivel) para realizar el recorrido.
+     * - Cuando se cambia de nivel, se imprime un mensaje indicando el nivel actual.
+     * - Para cada nodo, se añaden sus hijos izquierdo y derecho a la cola con el nivel incrementado.
+     * 
+     * @pre El árbol debe estar inicializado y puede contener nodos nulos.
+     * @post Se imprimen los datos de los nodos en orden de nivel, junto con los niveles correspondientes.
+     */
     public void RecorridoNivel() {
-        RecorridoRecursivo(nodo_raiz);
-    }
+        Queue<SimpleEntry<Nodo, Integer>> cola_nodos = new LinkedList<>();
+        
+        cola_nodos.add(new SimpleEntry<>(nodo_raiz, 0));
 
-    private void RecorridoRecursivo(Nodo nodo_analisis) {
-        if (nodo_analisis == nodo_raiz) {
-            System.out.println("Nodo raíz: " + nodo_raiz.getDato() + " !");
-        }
-        if (nodo_analisis.getHijoIzq() != null && nodo_analisis.getHijoDch() != null) {
-            System.out.println("El nodo " + nodo_analisis.getDato() + " tiene por la izquierda a " + nodo_analisis.getHijoIzq().getDato() + " y por la derecha " + 
-            nodo_analisis.getHijoDch().getDato());
-            RecorridoRecursivo(nodo_analisis.getHijoIzq());
-            RecorridoRecursivo(nodo_analisis.getHijoDch());
-        }
-        else if (nodo_analisis.getHijoIzq() != null && nodo_analisis.getHijoDch() == null) {
-            System.out.println("El nodo " + nodo_analisis.getDato() + " solo tiene por la izquierda a " + nodo_analisis.getHijoIzq().getDato());
-            RecorridoRecursivo(nodo_analisis.getHijoIzq());
-        }
-        else if (nodo_analisis.getHijoIzq() == null && nodo_analisis.getHijoDch() != null) {
-            System.out.println("El nodo " + nodo_analisis.getDato() + " solo tiene por la derecha a " + nodo_analisis.getHijoDch().getDato());
-            RecorridoRecursivo(nodo_analisis.getHijoDch());
-        }
-        else {
-            System.out.println("El nodo " + nodo_analisis.getDato() + " es un nodo hoja");
+        int nivel, nivel_actual = 0;
+        System.out.println("Estamos en el nivel " + nivel_actual);
+        while (!cola_nodos.isEmpty()) {
+            SimpleEntry<Nodo, Integer> entrada = cola_nodos.poll();
+            Nodo auxiliar = entrada.getKey();
+            nivel = entrada.getValue();
+            if (nivel > nivel_actual) {
+                nivel_actual = nivel;
+                System.out.println("Estamos en el nivel " + nivel_actual);
+            }
+
+            if (auxiliar == null) {
+                System.out.println("[.] ");
+            } else {
+                System.out.println(auxiliar.getDato() + " ");
+                cola_nodos.add(new SimpleEntry<>(auxiliar.getHijoIzq(), nivel + 1));
+                cola_nodos.add(new SimpleEntry<>(auxiliar.getHijoDch(), nivel + 1));
+            }
         }
     }
 }
