@@ -26,6 +26,10 @@ public class Arbol {
  * @return true si el dato fue insertado exitosamente, false en caso contrario.
  */
     private boolean InsertarRec(int dato, Nodo pater) {
+        if (Busqueda(dato)) {
+            System.out.println("El nodo ya existe en el árbol");
+            return false;
+        } 
         if (pater.getHijoIzq() == null) {
             pater.setHijoIzq(dato);
             return true;
@@ -34,19 +38,20 @@ public class Arbol {
             pater.setHijoDch(dato);
             return true;
         }
-
-        if (!NodoFull(pater.getHijoIzq())) {
-            return InsertarRec(dato, pater.getHijoIzq());
+        if (TamanioArbol(pater.getHijoIzq()) <= TamanioArbol(pater.getHijoDch())) {
+            InsertarRec(dato, pater.getHijoIzq());
+        } else {
+            InsertarRec(dato, pater.getHijoDch());
         }
-        if (!NodoFull(pater.getHijoDch())) {
-            return InsertarRec(dato, pater.getHijoDch());
-        }
-
-        return InsertarRec(dato, pater.getHijoIzq());
+        return false;
     }
 
-    private boolean NodoFull(Nodo nodo) {
-        return nodo.getHijoIzq() != null && nodo.getHijoDch() != null;
+    private int TamanioArbol(Nodo nodo) {
+        if (nodo == null) {
+            return 0;
+        } else {
+            return (1 + TamanioArbol(nodo.getHijoIzq()) + TamanioArbol(nodo.getHijoDch()));
+        }
     } 
 
     public boolean Busqueda(int dato) {
