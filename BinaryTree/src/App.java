@@ -1,6 +1,6 @@
 /*
  * Fecha de Comienzo: 29/04/2025
- * Fecha de Finalización: 
+ * Fecha de Finalización: 02/05/2025
  * Autor: Alejandro M.L, durante tardeos.
  * Este programa tienen como función la didáctica en cuanto a la implementación de una estructura de árbol binario en el lenguaje Java.
  * El tipo de datos de los nodos será unícamente de valores enteros.
