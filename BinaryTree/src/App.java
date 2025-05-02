@@ -9,19 +9,58 @@
  * 
  * Dada la naturaleza de este proyecto (asentamiento del lenguaje y entretenimiento), se pretende desarrollar todo el código sin el uso de IA generativa (inclusive Copilot).
  */
+
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        Arbol vicencio = new Arbol(2);
 
-        vicencio.Insertar(7);
-        vicencio.Insertar(5);
-        vicencio.Insertar(2);
-        vicencio.Insertar(6);
-        vicencio.Insertar(9);
-        vicencio.Insertar(5);
-        vicencio.Insertar(11);
-        vicencio.Insertar(4);
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Para empezar, introduce el valor del nodo raíz: ");
+        int dato = input.nextInt();
+        Arbol vicencio = new Arbol(dato);
 
-        vicencio.RecorridoNivel();
+        System.out.println("A continuación introducirás los nodos.");
+        boolean encendido = true;
+        while (encendido) {
+            System.out.println("Si deseas dejar de crear nodos introduce: 'f' | Introduce un entero que será el valor del nodo: ");
+            if (input.next().equals("f")) {
+                break;
+            }
+            dato = Integer.parseInt(input.next());
+            vicencio.Insertar(dato);
+            System.out.println("Resultado del árbol hasta ahora: ");
+            vicencio.RecorridoNivel();
+        }
+
+        OUTER:
+        while (encendido) {
+            System.out.println("Búsqueda de un nodo: 0 | Mostrar el árbol: 1 | Insertar un Nodo: 2 | Eliminar un nodo: 3 | Salir del programa: 4");
+            dato = input.nextInt();
+            switch (dato) {
+                case 0:
+                    System.out.println("Introduce el dato del nodo que deseas encontrar: ");
+                    dato = input.nextInt();
+                    if (vicencio.Busqueda(dato)) {
+                        System.out.println("Ese nodo existe en el árbol");
+                    } else {
+                        System.out.println("Ese nodo no existe en el árbol");
+                    }       break;
+                case 1:
+                    vicencio.RecorridoNivel();
+                    break;
+                case 2:
+                    System.out.println("Introduce el dato del nodo a crear: ");
+                    dato = input.nextInt();
+                    vicencio.Insertar(dato);
+                    break;
+                case 4:
+                    break OUTER;
+                default:
+                    System.out.println("Opción no implementada, vuelve a intentarlo.");
+            }
+        }
+        input.close();
     }
 }
