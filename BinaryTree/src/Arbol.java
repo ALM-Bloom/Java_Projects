@@ -66,19 +66,13 @@ public class Arbol {
  * @return true si el dato fue encontrado, false en caso contrario.
  */
     private boolean BusquedaRec(int dato, Nodo nodo_busqueda) {
+        if (nodo_busqueda == null) {
+            return false;
+        }
         if (nodo_busqueda.getDato() == dato) {
             return true;
         }
-        if (nodo_busqueda.getHijoIzq() == null && nodo_busqueda.getHijoDch() == null) {
-            return false;
-        }
-        if (BusquedaRec(dato, nodo_busqueda.getHijoIzq()) == true) {
-            return true;
-        }
-        if (BusquedaRec(dato, nodo_busqueda.getHijoDch()) == true) {
-            return true;
-        }
-        return false;
+        return BusquedaRec(dato, nodo_busqueda.getHijoIzq()) || BusquedaRec(dato, nodo_busqueda.getHijoDch());
     }
 
     public void RecorridoNivel() {
@@ -87,7 +81,7 @@ public class Arbol {
 
     private void RecorridoRecursivo(Nodo nodo_analisis) {
         if (nodo_analisis == nodo_raiz) {
-            System.out.println("¡Antes que nada estamos ante la hoja rey! ¡El nodo raíz! ¡Alabado Rey Nodo " + nodo_raiz.getDato() + " !");
+            System.out.println("Nodo raíz: " + nodo_raiz.getDato() + " !");
         }
         if (nodo_analisis.getHijoIzq() != null && nodo_analisis.getHijoDch() != null) {
             System.out.println("El nodo " + nodo_analisis.getDato() + " tiene por la izquierda a " + nodo_analisis.getHijoIzq().getDato() + " y por la derecha " + 
