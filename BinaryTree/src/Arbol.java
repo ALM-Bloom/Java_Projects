@@ -34,18 +34,20 @@ public class Arbol {
             pater.setHijoDch(dato);
             return true;
         }
-        if (pater.getHijoIzq().getHijoIzq() == null || pater.getHijoIzq().getHijoDch() == null) {
-        if (InsertarRec(dato, pater.getHijoIzq()) == true) {
-            return true;
-            }
+
+        if (!NodoFull(pater.getHijoIzq())) {
+            return InsertarRec(dato, pater.getHijoIzq());
         }
-        else {
-        if (InsertarRec(dato, pater.getHijoDch()) == true) {
-            return true;
-            }
+        if (!NodoFull(pater.getHijoDch())) {
+            return InsertarRec(dato, pater.getHijoDch());
         }
-        return false;
+
+        return InsertarRec(dato, pater.getHijoIzq());
     }
+
+    private boolean NodoFull(Nodo nodo) {
+        return nodo.getHijoIzq() != null && nodo.getHijoDch() != null;
+    } 
 
     public boolean Busqueda(int dato) {
         return BusquedaRec(dato, nodo_raiz);
