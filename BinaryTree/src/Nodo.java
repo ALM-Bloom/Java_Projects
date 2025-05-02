@@ -15,4 +15,7 @@ public class Nodo {
     public void setDato(int new_dato) { dato = new_dato; } 
     public void setHijoIzq(int dato) { hijo_izq = new Nodo(dato); }
     public void setHijoDch(int dato) { hijo_dch = new Nodo(dato); }
+    // Sobrecarga
+    public void setHijoIzq(Nodo dato) { hijo_izq = dato; }
+    public void setHijoDch(Nodo dato) { hijo_dch = dato; }
 }
