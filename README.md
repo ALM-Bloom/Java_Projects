@@ -6,6 +6,8 @@ El proyecto se define como la elaboración de una estructura de árbol binario q
 Para ello se definieron las operaciones: inserción, búsqueda, eliminación e impresión por pantalla del árbol al momento de la ejecución del comando.
 
 Como nota adicional, se priorizó que el código correspondiente a las operaciones utilizara recursividad.
----
 
-Para su ejecución se requiere un JDK para compilar los tres archivos .java correspondientes al código del programa. Tras ello y mediante terminal, se deberá de arrancar el ejecutable. 
+### Notas de funcionamiento
+Para su ejecución se requiere un JDK para compilar los tres archivos .java correspondientes al código del programa. Tras ello y mediante terminal, se deberá de arrancar el ejecutable generado mediante el procedimiento anterior.
+
+---
