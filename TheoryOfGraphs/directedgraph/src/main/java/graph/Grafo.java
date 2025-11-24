@@ -44,12 +44,26 @@ public class Grafo {
         this.aristas = aristas;
     }
 
+    // Método para averiguar el número total de aristas en el grafo.
+    public int totalAristas() {
+        int sum = 0;
+
+        for (int i = 0; i < vertices.size(); i++) {
+            HashSet<Integer> nodos = aristas.get(i);
+            if (nodos == null) { continue; }
+            sum = sum + nodos.size();
+        }
+
+        return sum;
+    }
+
     public boolean[][] convertMatrizAdyacencia() {
 
-        // Tamaño de la matriz es n x n
+        // Tamaño de la matriz es Nº vértices x Nº vértices
         int tamanio = vertices.size();
         boolean[][] matriz_adyacencia = new boolean[tamanio][tamanio];
 
+        // Recorremos el subconjunto de aristas mediante el mapa nodo-conjunto de vértices alcanzables.
         for (int i = 0; i < vertices.size(); i++) {
             HashSet<Integer> nodos = aristas.get(i);
 
@@ -60,5 +74,31 @@ public class Grafo {
             }
         }
         return matriz_adyacencia;
+    }
+
+    public boolean[][] convertirMatrizIncidencia() {
+
+        // Tamaño de la matriz es Nº vértices x Nº total de aristas
+        int tam_vertices = vertices.size();
+        int tam_aristas = totalAristas();
+        boolean[][] matriz_incidencia = new boolean[tam_vertices][tam_aristas];
+
+        // El contador establece la posición numérica de la arista en cuestión.
+        int cont_aristas = 0;
+
+        // Similar a la matriz de adyacencia salvo que en este caso se marcan las posiciones
+        // basándonos en el contador
+        for (int i = 0; i < vertices.size(); i++) {
+            HashSet<Integer> nodos = aristas.get(i);
+
+            if (nodos == null) { continue; }
+            for (int j : nodos) {
+                matriz_incidencia[i][cont_aristas] = true;
+                matriz_incidencia[j][cont_aristas] = true;
+                cont_aristas++;
+            }
+        }
+
+        return matriz_incidencia;
     }
 }
