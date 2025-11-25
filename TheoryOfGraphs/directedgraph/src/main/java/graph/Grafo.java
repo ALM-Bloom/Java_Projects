@@ -1,8 +1,11 @@
 package graph;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.HashMap;
+
+// TODO: GENERAR COMENTARIOS DOXYGEN
 
 // Un grafo por definición es: G = {V, E} donde:
 // E: Representa el conjunto de aristas formado por valores-pares no ordenados -> {x, y} pert E, por lo tanto
@@ -126,4 +129,27 @@ public class Grafo {
         }
 
         return grados;
+    }
+
+    public HashMap<Integer, HashSet<Integer>> listaAdyacencia() {
+
+        // Inicializamos la lista con los vértices de nuestro conjunto.
+        HashMap<Integer, HashSet<Integer>> adyacencias = new HashMap<Integer, HashSet<Integer>>();
+
+        for (int k = 0; k < vertices.size(); k++) {
+            adyacencias.putIfAbsent(k, new HashSet<Integer>());
+        }
+
+        for (int i = 0; i < vertices.size(); i++) {
+            HashSet<Integer> nodos = aristas.get(i);
+
+            if (nodos == null) { continue; }
+            for (int j : nodos) {
+                adyacencias.get(i).add(j);
+                adyacencias.get(j).add(i);
+            }
+        }
+
+            return adyacencias;
+    }
 }
