@@ -1,5 +1,6 @@
 package graph;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.HashMap;
 
@@ -101,4 +102,28 @@ public class Grafo {
 
         return matriz_incidencia;
     }
+
+    public ArrayList<Integer> listaGrados() {
+
+        // El tamaño del arreglo será el del número de vértices
+        int tamanio = vertices.size();
+
+        // Habrá que inicializar la lista de grados a 0.
+        ArrayList<Integer> grados = new ArrayList<Integer>(tamanio);
+
+        for (int k = 0; k < vertices.size(); k++) {
+            grados.add(0);
+        }
+
+        for (int i = 0; i < vertices.size(); i++) {
+            HashSet<Integer> nodos = aristas.get(i);
+
+            if (nodos == null) { continue; }
+            for (int j : nodos) {
+                grados.set(i, grados.get(i) + 1);
+                grados.set(j, grados.get(j) + 1);
+            }
+        }
+
+        return grados;
 }
