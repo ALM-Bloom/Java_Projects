@@ -27,11 +27,6 @@ public class Grafo {
         this.aristas = aristas;
     }
 
-    public String toString() {
-        //TODO
-        return "";
-    }
-
     public HashSet<Integer> getVertices() {
         return vertices;
     }
@@ -151,5 +146,30 @@ public class Grafo {
         }
 
             return adyacencias;
+    }
+
+    public void mostrarMatriz(boolean[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print((matrix[i][j] ? 1 : 0) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void mostrarLista(HashMap<Integer, HashSet<Integer>> adyacencias) {
+        for (Integer vert : adyacencias.keySet()) {
+            System.out.print((vert + 1) + ": ");
+            for (Integer vecino : adyacencias.get(vert)) {
+                System.out.print((vecino + 1) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void mostrarGrados(ArrayList<Integer> grados) {
+        for (int i = 0; i < grados.size(); i++) {
+            System.out.print(grados.get(i) + ", ");
+        }
     }
 }
