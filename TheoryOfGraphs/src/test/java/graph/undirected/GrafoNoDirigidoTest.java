@@ -1,6 +1,7 @@
 package graph.undirected;
 import static org.junit.jupiter.api.Assertions.*;
 
+import graph.engine.Grafo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.*;
@@ -12,13 +13,44 @@ class GrafoNoDirigidoTest {
     private  HashSet<Integer> vertices;
 
     void grafoConexo() {
-        vertices = new HashSet<>(Set.of(0, 1, 2, 3));
+                /* Lista de adyacencia del grafo para mayor claridad:
+           0: 1, 3
+           1: 0, 2, 4
+           2: 1, 5
+           3: 0
+           4: 1
+           5: 2
+         */
+        vertices = new HashSet<>(Set.of(0, 1, 2, 3, 4, 5));
 
         aristas = new HashMap<>();
         aristas.putIfAbsent(0, new HashSet<>(Set.of(1, 3)));
-        aristas.putIfAbsent(1, new HashSet<>(Set.of(0, 2)));
-        aristas.putIfAbsent(2, new HashSet<>(Set.of(1)));
+        aristas.putIfAbsent(1, new HashSet<>(Set.of(0, 2, 4)));
+        aristas.putIfAbsent(2, new HashSet<>(Set.of(1, 5)));
         aristas.putIfAbsent(3, new HashSet<>(Set.of(0)));
+        aristas.putIfAbsent(4, new HashSet<>(Set.of(1)));
+        aristas.putIfAbsent(5, new HashSet<>(Set.of(2)));
+    }
+
+    void grafoNoConexo() {
+
+        /* Lista de adyacencia del grafo para mayor claridad:
+           0: 1
+           1: 0, 2, 4
+           2: 1, 5
+           3: 5
+           4: 1
+           5: 3
+         */
+        vertices = new HashSet<>(Set.of(0, 1, 2, 3, 4, 5));
+
+        aristas = new HashMap<>();
+        aristas.putIfAbsent(0, new HashSet<>(Set.of(1)));
+        aristas.putIfAbsent(1, new HashSet<>(Set.of(0, 2, 4)));
+        aristas.putIfAbsent(2, new HashSet<>(Set.of(1, 5)));
+        aristas.putIfAbsent(3, new HashSet<>(Set.of(5)));
+        aristas.putIfAbsent(4, new HashSet<>(Set.of(1)));
+        aristas.putIfAbsent(5, new HashSet<>(Set.of(3)));
     }
 
     @Test
@@ -41,7 +73,7 @@ class GrafoNoDirigidoTest {
     @Test
     void testBFS_GrafoConexo() {
         grafoConexo();
-        GrafoNoDirigido grafo = new GrafoNoDirigido(vertices, aristas);
+        Grafo grafo = new GrafoNoDirigido(vertices, aristas);
 
         String resultado = grafo.BFS(0);
 
@@ -51,7 +83,7 @@ class GrafoNoDirigidoTest {
     @Test
     void testDFS_GrafoConexo() {
         grafoConexo();
-        GrafoNoDirigido grafo = new GrafoNoDirigido(vertices, aristas);
+        Grafo grafo = new GrafoNoDirigido(vertices, aristas);
 
         String resultado = grafo.DFS(0);
 
