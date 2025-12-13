@@ -22,6 +22,23 @@ class GrafoNoDirigidoTest {
     }
 
     @Test
+    void testAdyacencia_GrafoConexo() {
+
+        grafoConexo();
+        Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+            boolean[][] matriz_adyacencia = new boolean[][]{
+                    {false, true, false, true, false, false},
+                    {true, false, true, false, true, false},
+                    {false, true, false, false, false, true},
+                    {true, false, false, false, false, false},
+                    {false, true, false, false, false, false},
+                    {false, false, true, false, false, false}
+            };
+
+        assertArrayEquals(matriz_adyacencia, grafo.convertMatrizAdyacencia());
+        }
+
+    @Test
     void testBFS_GrafoConexo() {
         grafoConexo();
         GrafoNoDirigido grafo = new GrafoNoDirigido(vertices, aristas);
