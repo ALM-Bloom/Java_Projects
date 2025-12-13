@@ -156,9 +156,9 @@ public class Grafo {
 
     public void mostrarLista(HashMap<Integer, HashSet<Integer>> adyacencias) {
         for (Integer vert : adyacencias.keySet()) {
-            System.out.print((vert) + ": ");
+            System.out.print((vert + 1) + ": ");
             for (Integer vecino : adyacencias.get(vert)) {
-                System.out.print((vecino) + " ");
+                System.out.print((vecino + 1) + " ");
             }
             System.out.println();
         }
@@ -186,7 +186,7 @@ public class Grafo {
             int vert_ext = no_visitados.poll();
 
             // Ajustes para la visualización
-            System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + vert_ext);
+            System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + (vert_ext + 1));
             ArrayList<Integer> visualizacion = new ArrayList<>();
             // -----------------------------
 
@@ -199,14 +199,15 @@ public class Grafo {
                 if (!visitados.contains(vertice)) {
                     visitados.add(vertice);
                     no_visitados.add(vertice);
-                    visualizacion.add(vertice);
                 }
             }
 
+            visualizacion.add(vert_ext);
+            
             // Visualización iterativa del recorrido
             if (!visualizacion.isEmpty()) {
                 for (int i = 0; i < visualizacion.size(); i++) {
-                    text_visual = text_visual + visualizacion.get(i) + "    ";
+                    text_visual = text_visual + (visualizacion.get(i) + 1) + "    ";
                 }
                 text_visual = text_visual + "\n";
             }
