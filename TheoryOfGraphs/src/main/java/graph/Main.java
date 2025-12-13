@@ -1,5 +1,8 @@
 package graph;
 
+import graph.engine.Grafo;
+import graph.undirected.GrafoNoDirigido;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -55,10 +58,10 @@ public class Main {
         }
 
         // Construcción del Grafo
-        Grafo grafo = new Grafo(vertices, aristas);
+        Grafo grafoNoDirigido = new GrafoNoDirigido(vertices, aristas);
 
         // Menú de Selección de Visualización
-        System.out.println("El grafo ha sido construido. Seleccione que desea visualizar a partir del menú.\n");
+        System.out.println("El Grafo ha sido construido. Seleccione que desea visualizar a partir del menú.\n");
         boolean exit = false;
         while (!exit) {
 
@@ -75,26 +78,26 @@ public class Main {
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
-                    grafo.mostrarMatriz(grafo.convertMatrizAdyacencia());
+                    grafoNoDirigido.mostrarMatriz(grafoNoDirigido.convertMatrizAdyacencia());
                     break;
                 case 2:
-                    grafo.mostrarMatriz(grafo.convertirMatrizIncidencia());
+                    grafoNoDirigido.mostrarMatriz(grafoNoDirigido.convertirMatrizIncidencia());
                     break;
                 case 3:
-                    grafo.mostrarGrados(grafo.listaGrados());
+                    grafoNoDirigido.mostrarGrados(grafoNoDirigido.listaGrados());
                     break;
                 case 4:
-                    grafo.mostrarLista(grafo.listaAdyacencia());
+                    grafoNoDirigido.mostrarLista(grafoNoDirigido.listaAdyacencia());
                     break;
                 case 5:
                     System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
                     int fuente = scanner.nextInt() - 1;
-                    System.out.println(grafo.BFS(fuente));
+                    System.out.println(grafoNoDirigido.BFS(fuente));
                     break;
                 case 6:
                     System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
                     int fuente_dfs = scanner.nextInt() - 1;
-                    System.out.println(grafo.DFS(fuente_dfs));
+                    System.out.println(grafoNoDirigido.DFS(fuente_dfs));
                     break;
                 case 7:
                     exit = true;

@@ -1,4 +1,6 @@
-package graph;
+package graph.undirected;
+
+import graph.engine.Grafo;
 
 import java.util.*;
 
@@ -7,7 +9,7 @@ import java.util.*;
 // Un grafo por definición es: G = {V, E} donde:
 // E: Representa el conjunto de aristas formado por valores-pares no ordenados -> {x, y} pert E, por lo tanto
 // x e y son adyacentes.
-public class Grafo {
+public class GrafoNoDirigido implements Grafo {
 
     // V: Representa el conjunto NO vacío de vértices ("nodos")
     private HashSet<Integer> vertices;
@@ -15,31 +17,36 @@ public class Grafo {
     // x e y son adyacentes.
     private HashMap<Integer, HashSet<Integer>> aristas;
 
-    public Grafo() {
+    public GrafoNoDirigido() {
         super();
     }
 
-    public Grafo(HashSet<Integer> vertices, HashMap<Integer, HashSet<Integer>> aristas) {
+    public GrafoNoDirigido(HashSet<Integer> vertices, HashMap<Integer, HashSet<Integer>> aristas) {
         this.vertices = vertices;
         this.aristas = aristas;
     }
 
+    @Override
     public HashSet<Integer> getVertices() {
         return vertices;
     }
 
+    @Override
     public HashMap<Integer, HashSet<Integer>> getAristas() {
         return aristas;
     }
 
+    @Override
     public void setVertices(HashSet<Integer> vertices) {
         this.vertices = vertices;
     }
 
+    @Override
     public void setAristas(HashMap<Integer, HashSet<Integer>> aristas) {
         this.aristas = aristas;
     }
 
+    @Override
     // Método para averiguar el número total de aristas en el grafo.
     public int totalAristas() {
         int sum = 0;
@@ -53,11 +60,12 @@ public class Grafo {
         return sum;
     }
 
+    @Override
     public boolean[][] convertMatrizAdyacencia() {
 
         // Tamaño de la matriz es Nº vértices x Nº vértices
-        int tamanio = vertices.size();
-        boolean[][] matriz_adyacencia = new boolean[tamanio][tamanio];
+        int dimension = vertices.size();
+        boolean[][] matriz_adyacencia = new boolean[dimension][dimension];
 
         // Recorremos el subconjunto de aristas mediante el mapa nodo-conjunto de vértices alcanzables.
         for (int i = 0; i < vertices.size(); i++) {
@@ -72,6 +80,7 @@ public class Grafo {
         return matriz_adyacencia;
     }
 
+    @Override
     public boolean[][] convertirMatrizIncidencia() {
 
         // Tamaño de la matriz es Nº vértices x Nº total de aristas
@@ -98,6 +107,7 @@ public class Grafo {
         return matriz_incidencia;
     }
 
+    @Override
     public ArrayList<Integer> listaGrados() {
 
         // El tamaño del arreglo será el del número de vértices
@@ -123,6 +133,7 @@ public class Grafo {
         return grados;
     }
 
+    @Override
     public HashMap<Integer, HashSet<Integer>> listaAdyacencia() {
 
         // Inicializamos la lista con los vértices de nuestro conjunto.
@@ -145,6 +156,7 @@ public class Grafo {
             return adyacencias;
     }
 
+    @Override
     public void mostrarMatriz(boolean[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -154,6 +166,7 @@ public class Grafo {
         }
     }
 
+    @Override
     public void mostrarLista(HashMap<Integer, HashSet<Integer>> adyacencias) {
         for (Integer vert : adyacencias.keySet()) {
             System.out.print((vert + 1) + ": ");
@@ -164,12 +177,14 @@ public class Grafo {
         }
     }
 
+    @Override
     public void mostrarGrados(ArrayList<Integer> grados) {
         for (int i = 0; i < grados.size(); i++) {
             System.out.print(grados.get(i) + ", ");
         }
     }
 
+    @Override
     public String BFS(int fuente) {
         HashMap<Integer, HashSet<Integer>> list_adyacencia = listaAdyacencia();
         Queue<Integer> no_visitados = new LinkedList<>();
@@ -217,6 +232,7 @@ public class Grafo {
         return "BFS Finalizado | El grafo no es conexo";
     }
 
+    @Override
     public String DFS(int fuente) {
         HashMap<Integer, HashSet<Integer>> list_adyacencia = listaAdyacencia();
         Stack<Integer> no_visitados = new Stack<>();
