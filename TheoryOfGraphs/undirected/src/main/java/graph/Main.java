@@ -19,15 +19,15 @@ public class Main {
 
         System.out.println("¡Vértices Introducidos!\n");
         System.out.println("Para introducir las aristas y conectarlas seguirá el siguiente procedimiento:\n" +
-                "Iterará sobre los vértices comenzando desde el primero ('0'), e introducirá el vértice que" +
+                "Iterará sobre los vértices comenzando desde el primero ('1'), e introducirá el vértice que" +
                 " desea que sea adyacente. Para continuar al siguiente vértice podrá introducir 's'.");
 
         HashMap<Integer, HashSet<Integer>> aristas = new HashMap<>();
         HashMap<Integer, Integer> vert_introducidos;
         int cont = 0;
         while (cont < num_vertices) {
-            System.out.println("Se encuentra en el vértice " + cont);
-            System.out.println("Introduzca el vértice adyacente a " + cont + " pase al siguiente introduciendo 's'." +
+            System.out.println("Se encuentra en el vértice " + (cont + 1));
+            System.out.println("Introduzca el vértice adyacente a " + (cont + 1) + " pase al siguiente introduciendo 's'." +
                     " O finalice la construcción con 'h'");
 
             String option = scanner.next();
@@ -39,18 +39,18 @@ public class Main {
             else if (option.equals("h")) {
                 break;
             } else {
-                int vert_ady = Integer.parseInt(option);
+                int vert_ady = Integer.parseInt(option) - 1;
                 if (vert_ady < 0 || vert_ady >= num_vertices) {
                     throw new IllegalArgumentException("Vértice introducido no incluido en el grafo");
                 }
                 aristas.putIfAbsent(cont, new HashSet<>());
                 if (aristas.get(cont).contains(vert_ady)) {
-                    System.out.println("El vértice " + cont + " ya se encuentra adyacente a " + vert_ady +
+                    System.out.println("El vértice " + (cont + 1) + " ya se encuentra adyacente a " + (vert_ady + 1) +
                             ". Introduzca otro, por favor.\n");
                     continue;
                 }
                 aristas.get(cont).add(vert_ady);
-                System.out.println("El vértice " + cont + " ahora es adyacente a " + vert_ady + "\n");
+                System.out.println("El vértice " + (cont + 1) + " ahora es adyacente a " + (vert_ady + 1) + "\n");
             }
         }
 
@@ -69,7 +69,8 @@ public class Main {
                  3) Secuencia de Grados
                  4) Lista de Adyacencia
                  5) Recorrido BFS
-                 6) Salir""");
+                 6) Recorrido DFS
+                 7) Salir""");
 
             int option = scanner.nextInt();
             switch (option) {
@@ -87,10 +88,15 @@ public class Main {
                     break;
                 case 5:
                     System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
-                    int fuente = scanner.nextInt();
+                    int fuente = scanner.nextInt() - 1;
                     System.out.println(grafo.BFS(fuente));
                     break;
                 case 6:
+                    System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
+                    int fuente_dfs = scanner.nextInt() - 1;
+                    System.out.println(grafo.DFS(fuente_dfs));
+                    break;
+                case 7:
                     exit = true;
                     break;
                 }
