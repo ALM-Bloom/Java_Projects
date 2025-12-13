@@ -186,15 +186,15 @@ public class Grafo {
         while (!no_visitados.isEmpty()) {
             int vert_ext = no_visitados.poll();
 
-            // Ajustes para la visualización
-            System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + (vert_ext + 1));
-            ArrayList<Integer> visualizacion = new ArrayList<>();
-            // -----------------------------
-
             // Si Visitados ya contiene todos los vértices se detiene el algoritmo (evitar redundancia)
             if (visitados.containsAll(vertices)) {
                 break;
             }
+            
+            // Ajustes para la visualización
+            System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + (vert_ext + 1));
+            ArrayList<Integer> visualizacion = new ArrayList<>();
+            // -----------------------------
 
             for (int vertice : list_adyacencia.get(vert_ext)) {
                 if (!visitados.contains(vertice)) {
@@ -209,7 +209,7 @@ public class Grafo {
                 for (int i = 0; i < visualizacion.size(); i++) {
                     text_visual = text_visual + (visualizacion.get(i) + 1) + "    ";
                 }
-                text_visual = text_visual + "\n";
+                text_visual = text_visual +  " padre de los nodos: " + (vert_ext + 1) + "\n";
             }
             System.out.println(text_visual);
             cont++;
