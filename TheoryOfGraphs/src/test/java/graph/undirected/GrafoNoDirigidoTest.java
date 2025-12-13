@@ -31,5 +31,14 @@ class GrafoNoDirigidoTest {
         assertEquals("BFS Finalizado | El grafo es conexo", resultado);
     }
 
-    
+    @Test
+    void testDFS_GrafoConexo() {
+        grafoConexo();
+        GrafoNoDirigido grafo = new GrafoNoDirigido(vertices, aristas);
+
+        String resultado = grafo.DFS(0);
+
+        assertEquals("DFS Finalizado | El grafo es conexo", resultado);
+    }
+
 }
