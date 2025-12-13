@@ -186,11 +186,6 @@ public class Grafo {
         while (!no_visitados.isEmpty()) {
             int vert_ext = no_visitados.poll();
 
-            // Si Visitados ya contiene todos los vértices se detiene el algoritmo (evitar redundancia)
-            if (visitados.containsAll(vertices)) {
-                break;
-            }
-            
             // Ajustes para la visualización
             System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + (vert_ext + 1));
             ArrayList<Integer> visualizacion = new ArrayList<>();
