@@ -216,4 +216,50 @@ public class Grafo {
 
         return "BFS Finalizado | El grafo no es conexo";
     }
+
+    public String DFS(int fuente) {
+        HashMap<Integer, HashSet<Integer>> list_adyacencia = listaAdyacencia();
+        Stack<Integer> no_visitados = new Stack<>();
+        String text_visual = "";
+        no_visitados.add(fuente);
+
+        HashSet<Integer> visitados = new HashSet<>();
+        visitados.add(fuente);
+
+        int cont = 0;
+        while (!no_visitados.empty()) {
+            int vert_ext = no_visitados.pop();
+
+            // Ajustes para la visualización
+            System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + (vert_ext + 1));
+            ArrayList<Integer> visualizacion = new ArrayList<>();
+            // -----------------------------
+
+            // Para introducir los vértices en la pila de izquierda-derecha
+            List<Integer> lista = new ArrayList<>(list_adyacencia.get(vert_ext));
+            Collections.reverse(lista);
+
+            for (int vertice : lista) {
+                if (!visitados.contains(vertice)) {
+                    no_visitados.add(vertice);
+                    visitados.add(vertice);
+                }
+            }
+
+            visualizacion.add(vert_ext);
+            // Visualización iterativa del recorrido
+            for (int i = 0; i < visualizacion.size(); i++) {
+                text_visual = text_visual + (visualizacion.get(i) + 1) + "    ";
+            }
+            text_visual = text_visual + "\n";
+            System.out.println(text_visual);
+            cont++;
+        }
+
+        if (visitados.containsAll(vertices)) {
+            return "DFS Finalizado | El grafo es conexo";
+        }
+
+        return "DFS Finalizado | El grafo no es conexo";
+    }
 }
