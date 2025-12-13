@@ -178,7 +178,6 @@ public class Grafo {
 
         HashSet<Integer> visitados = new HashSet<>();
         visitados.add(fuente);
-        text_visual = text_visual + fuente + "\n";
 
         int cont = 0;
         // Comienzo del algoritmo BFS
@@ -203,7 +202,6 @@ public class Grafo {
                 }
             }
 
-            visualizacion.add(vert_ext);
             // Visualización iterativa del recorrido
             if (!visualizacion.isEmpty()) {
                 for (int i = 0; i < visualizacion.size(); i++) {
