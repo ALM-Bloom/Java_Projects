@@ -199,11 +199,11 @@ public class Grafo {
                 if (!visitados.contains(vertice)) {
                     visitados.add(vertice);
                     no_visitados.add(vertice);
+                    visualizacion.add(vertice);
                 }
             }
 
             visualizacion.add(vert_ext);
-            
             // Visualización iterativa del recorrido
             if (!visualizacion.isEmpty()) {
                 for (int i = 0; i < visualizacion.size(); i++) {
