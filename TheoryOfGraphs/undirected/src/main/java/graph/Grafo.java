@@ -179,6 +179,8 @@ public class Grafo {
         HashSet<Integer> visitados = new HashSet<>();
         visitados.add(fuente);
 
+        text_visual = text_visual + (fuente + 1) + "\n";
+
         int cont = 0;
         // Comienzo del algoritmo BFS
         while (!no_visitados.isEmpty()) {
