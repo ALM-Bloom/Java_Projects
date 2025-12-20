@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import graph.engine.Grafo;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 
@@ -13,7 +14,7 @@ class GrafoNoDirigidoTest {
     private  HashSet<Integer> vertices;
 
     void grafoConexo() {
-                /* Lista de adyacencia del grafo para mayor claridad:
+        /* Lista de adyacencia del grafo para mayor claridad:
            0: 1, 3
            1: 0, 2, 4
            2: 1, 5
@@ -25,11 +26,11 @@ class GrafoNoDirigidoTest {
 
         aristas = new HashMap<>();
         aristas.putIfAbsent(0, new HashSet<>(Set.of(1, 3)));
-        aristas.putIfAbsent(1, new HashSet<>(Set.of(0, 2, 4)));
-        aristas.putIfAbsent(2, new HashSet<>(Set.of(1, 5)));
-        aristas.putIfAbsent(3, new HashSet<>(Set.of(0)));
-        aristas.putIfAbsent(4, new HashSet<>(Set.of(1)));
-        aristas.putIfAbsent(5, new HashSet<>(Set.of(2)));
+        aristas.putIfAbsent(1, new HashSet<>(Set.of(2, 4)));
+        aristas.putIfAbsent(2, new HashSet<>(Set.of(5)));
+        aristas.putIfAbsent(3, new HashSet<>(Set.of()));
+        aristas.putIfAbsent(4, new HashSet<>(Set.of()));
+        aristas.putIfAbsent(5, new HashSet<>(Set.of()));
     }
 
     void grafoNoConexo() {
@@ -37,7 +38,7 @@ class GrafoNoDirigidoTest {
         /* Lista de adyacencia del grafo para mayor claridad:
            0: 1
            1: 0, 2, 4
-           2: 1, 5
+           2: 1
            3: 5
            4: 1
            5: 3
@@ -46,18 +47,20 @@ class GrafoNoDirigidoTest {
 
         aristas = new HashMap<>();
         aristas.putIfAbsent(0, new HashSet<>(Set.of(1)));
-        aristas.putIfAbsent(1, new HashSet<>(Set.of(0, 2, 4)));
-        aristas.putIfAbsent(2, new HashSet<>(Set.of(1, 5)));
+        aristas.putIfAbsent(1, new HashSet<>(Set.of(2, 4)));
+        aristas.putIfAbsent(2, new HashSet<>(Set.of(1)));
         aristas.putIfAbsent(3, new HashSet<>(Set.of(5)));
-        aristas.putIfAbsent(4, new HashSet<>(Set.of(1)));
-        aristas.putIfAbsent(5, new HashSet<>(Set.of(3)));
+        aristas.putIfAbsent(4, new HashSet<>(Set.of()));
+        aristas.putIfAbsent(5, new HashSet<>(Set.of()));
     }
 
-    @Test
-    void testAdyacencia_GrafoConexo() {
+    @Nested
+    class GrafoConexo {
 
-        grafoConexo();
-        Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+        @Test
+        void testAdyacencia_GrafoConexo() {
+            grafoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
             boolean[][] matriz_adyacencia = new boolean[][]{
                     {false, true, false, true, false, false},
                     {true, false, true, false, true, false},
@@ -67,7 +70,7 @@ class GrafoNoDirigidoTest {
                     {false, false, true, false, false, false}
             };
 
-        assertArrayEquals(matriz_adyacencia, grafo.convertMatrizAdyacencia());
+            assertArrayEquals(matriz_adyacencia, grafo.convertMatrizAdyacencia());
         }
 
     @Test
@@ -80,14 +83,11 @@ class GrafoNoDirigidoTest {
         assertEquals("BFS Finalizado | El grafo es conexo", resultado);
     }
 
-    @Test
-    void testDFS_GrafoConexo() {
-        grafoConexo();
-        Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+            String resultado = grafo.DFS(0);
 
-        String resultado = grafo.DFS(0);
+            assertEquals("DFS Finalizado | El grafo es conexo", resultado);
+        }
 
-        assertEquals("DFS Finalizado | El grafo es conexo", resultado);
     }
 
 }
