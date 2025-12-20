@@ -73,10 +73,6 @@ class GrafoNoDirigidoTest {
             assertArrayEquals(matriz_adyacencia, grafo.convertMatrizAdyacencia());
         }
 
-    @Test
-    void testBFS_GrafoConexo() {
-        grafoConexo();
-        Grafo grafo = new GrafoNoDirigido(vertices, aristas);
 
         @Test
         void testGrados_GrafoConexo() {
