@@ -145,4 +145,27 @@ class GrafoNoDirigidoTest {
 
     }
 
+    @Nested
+    class GrafoNoConexo {
+
+        @Test
+        void testBFS_GrafoNoConexo() {
+            grafoNoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+
+            String resultado = grafo.BFS(0);
+
+            assertEquals("BFS Finalizado | El grafo no es conexo", resultado);
+        }
+
+        @Test
+        void testDFS_GrafoNoConexo() {
+            grafoNoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+
+            String resultado = grafo.DFS(0);
+
+            assertEquals("DFS Finalizado | El grafo no es conexo", resultado);
+        }
+    }
 }
