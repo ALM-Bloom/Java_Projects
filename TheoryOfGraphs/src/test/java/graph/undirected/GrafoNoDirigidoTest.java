@@ -78,7 +78,19 @@ class GrafoNoDirigidoTest {
         grafoConexo();
         Grafo grafo = new GrafoNoDirigido(vertices, aristas);
 
-        String resultado = grafo.BFS(0);
+        @Test
+        void testGrados_GrafoConexo() {
+            grafoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+            ArrayList<Integer> grados = new ArrayList<>();
+            grados.add(2);
+            grados.add(3);
+            grados.add(2);
+            grados.add(1);
+            grados.add(1);
+            grados.add(1);
+            assertEquals(grados, grafo.listaGrados());
+        }
 
         assertEquals("BFS Finalizado | El grafo es conexo", resultado);
     }
