@@ -92,8 +92,51 @@ class GrafoNoDirigidoTest {
             assertEquals(grados, grafo.listaGrados());
         }
 
-        assertEquals("BFS Finalizado | El grafo es conexo", resultado);
-    }
+        @Test
+        void testIncidencia_GrafoConexo() {
+            grafoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+            boolean[][] matrizIncidencia = {
+                    {true, true, false, false, false},
+                    {true, false, true, true, false},
+                    {false, false, true, false, true},
+                    {false, true, false, false, false},
+                    {false, false, false, true, false},
+                    {false, false, false, false, true}
+            };
+
+            assertArrayEquals(matrizIncidencia, grafo.convertirMatrizIncidencia());
+        }
+
+        @Test
+        void testLista_GrafoConexo() {
+            grafoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+            HashMap<Integer, HashSet<Integer>> elemento_lista = new HashMap<>();
+            elemento_lista.putIfAbsent(0, new HashSet<>(Set.of(1, 3)));
+            elemento_lista.putIfAbsent(1, new HashSet<>(Set.of(0, 2, 4)));
+            elemento_lista.putIfAbsent(2, new HashSet<>(Set.of(1, 5)));
+            elemento_lista.putIfAbsent(3, new HashSet<>(Set.of(0)));
+            elemento_lista.putIfAbsent(4, new HashSet<>(Set.of(1)));
+            elemento_lista.putIfAbsent(5, new HashSet<>(Set.of(2)));
+
+            assertEquals(elemento_lista, grafo.listaAdyacencia());
+        }
+
+        @Test
+        void testBFS_GrafoConexo() {
+            grafoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
+
+            String resultado = grafo.BFS(0);
+
+            assertEquals("BFS Finalizado | El grafo es conexo", resultado);
+        }
+
+        @Test
+        void testDFS_GrafoConexo() {
+            grafoConexo();
+            Grafo grafo = new GrafoNoDirigido(vertices, aristas);
 
             String resultado = grafo.DFS(0);
 
