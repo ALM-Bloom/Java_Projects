@@ -161,12 +161,7 @@ public class DiGrafo implements Grafo {
         }
 
         for (int i = 0; i < vertices.size(); i++) {
-            HashSet<Integer> nodos = aristas.get(i);
-
-            if (nodos == null) { continue; }
-            for (int j : nodos) {
-                grados.set(i, grados.get(i) + 1);
-            }
+            grados.set(i, aristas.get(i).size());
         }
 
         return grados;
