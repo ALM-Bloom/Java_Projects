@@ -1,7 +1,6 @@
 package graph.directed;
 
 import graph.engine.Grafo;
-import graph.undirected.GrafoNoDirigido;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
