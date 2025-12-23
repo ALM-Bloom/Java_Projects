@@ -7,6 +7,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
+/**
+ * Código correspondiente a la parte clientelar del proyecto.
+ * Define la lectura de vértices y sus adyacencias para la creación del grafo y un menú correspondiente a las
+ * distintas operaciones de manipulación de éstos.
+ * Se valora añadir otro metodo de lectura del grafo, así como abstraer el comportamiento de lectura dentro de la clase
+ * Grafo.
+ * @author: Alejandro M.L
+ * @version: 23/12/2025/A
+ * @see: {@link graph.engine.Grafo}
+ */
 public class Main {
     public static void main(String[] args) {
 

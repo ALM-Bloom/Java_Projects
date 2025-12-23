@@ -2,8 +2,12 @@ package graph.engine;
 
 import java.util.*;
 
-// TODO: GENERAR COMENTARIOS DOXYGEN
-
+/**
+ * La interfaz Grafo proporciona la plantilla a definir dado el comportamiento de los digrafos y grafos no dirigidos.
+ * @author:  Alejandro M.L
+ * @version: 22/12/2025/A
+ * @see: {@link graph.undirected.GrafoNoDirigido} {@link graph.directed.DiGrafo}
+ */
 public interface Grafo {
 
     public HashSet<Integer> getVertices();
@@ -14,7 +18,6 @@ public interface Grafo {
 
     public void setAristas(HashMap<Integer, HashSet<Integer>> aristas);
 
-    // Método para averiguar el número total de aristas en el grafo.
     public int totalAristas();
 
     public boolean[][] convertMatrizAdyacencia();
