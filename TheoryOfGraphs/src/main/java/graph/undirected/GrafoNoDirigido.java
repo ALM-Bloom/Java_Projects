@@ -16,10 +16,7 @@ import java.util.*;
  */
 public class GrafoNoDirigido implements Grafo {
 
-    // V: Representa el conjunto NO vacío de vértices ("nodos")
     private HashSet<Integer> vertices;
-    // E: Representa el conjunto de aristas formado por valores-pares no ordenados -> {x, y} pert E, por lo tanto
-    // x e y son adyacentes.
     private HashMap<Integer, HashSet<Integer>> aristas;
 
     /**
