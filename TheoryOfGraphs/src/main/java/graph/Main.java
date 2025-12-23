@@ -13,9 +13,9 @@ import java.util.Scanner;
  * distintas operaciones de manipulación de éstos.
  * Se valora añadir otro metodo de lectura del grafo, así como abstraer el comportamiento de lectura dentro de la clase
  * Grafo.
- * @author: Alejandro M.L
- * @version: 23/12/2025/A
- * @see: {@link graph.engine.Grafo}
+ * @author Alejandro M.L
+ * @version 23/12/2025/A
+ * @see graph.engine.Grafo
  */
 public class Main {
     public static void main(String[] args) {

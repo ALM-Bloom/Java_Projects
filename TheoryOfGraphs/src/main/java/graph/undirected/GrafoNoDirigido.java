@@ -10,9 +10,9 @@ import java.util.*;
  * Los Grafos no Dirigidos se caracterizan por sus aristas bidireccionales, esto es, no tienen dirección específica.
  * <p>
  * La Clase GrafoNoDirigido realiza una definición de los métodos de la interfaz Grafo
- * @author: Alejandro M.L
- * @version: 22/12/2025/A
- * @see: {@link graph.engine.Grafo}
+ * @author Alejandro M.L
+ * @version 22/12/2025/A
+ * @see  graph.engine.Grafo
  */
 public class GrafoNoDirigido implements Grafo {
 
@@ -98,7 +98,7 @@ public class GrafoNoDirigido implements Grafo {
      * Dentro de la matriz el valor 'true' corresponde a la existencia de conexión con dicho vértice y 'false' a
      * lo contrario.
      * @return Un arreglo booleano de dos dimensiones que corresponde a la matriz de adyacencia del grafo.
-     * @see: <a href = "https://es.wikipedia.org/wiki/Matriz_de_adyacencia"> Véase la descripción de una matriz
+     * @see  <a href = "https://es.wikipedia.org/wiki/Matriz_de_adyacencia"> Véase la descripción de una matriz
      * de adyacencia en el artículo adjunto.</a>
      */
     @Override
@@ -126,7 +126,7 @@ public class GrafoNoDirigido implements Grafo {
      * Dentro de la matriz el valor 'true' corresponde a la existencia de conexión con dicho vértice y 'false' a
      * lo contrario.
      * @return Un arreglo booleano de dos dimensiones que corresponde a la matriz de incidencia del grafo.
-     * @see: <a href = "https://es.wikipedia.org/wiki/Matriz_de_incidencia"> Véase la descripción de una matriz
+     * @see  <a href = "https://es.wikipedia.org/wiki/Matriz_de_incidencia"> Véase la descripción de una matriz
      * de incidencia en el artículo adjunto.</a>
      */
     @Override
@@ -159,7 +159,7 @@ public class GrafoNoDirigido implements Grafo {
     /**
      * Metodo para la obtención de la lista de grados de los vértices del grafo
      * @return Un arreglo correspondiente a la secuencia de grados ordenada para cada vértice
-     * @see: <a href = "https://es.wikipedia.org/wiki/Grado_(teor%C3%ADa_de_grafos)"> Véase la definición
+     * @see  <a href = "https://es.wikipedia.org/wiki/Grado_(teor%C3%ADa_de_grafos)"> Véase la definición
      * matemática del grado de un vértice en el siguiente artículo.</a>
      */
     @Override
@@ -192,7 +192,7 @@ public class GrafoNoDirigido implements Grafo {
     /**
      * Metodo para la obtención de la lista de adyacencia de un grafo.
      * @return Un mapa correspondiente a los valores vértice-conjunto de vértices alcanzables del grafo.
-     * @see: <a href = "https://es.wikipedia.org/wiki/Lista_de_adyacencia"> Véase la descripción de una lista
+     * @see  <a href = "https://es.wikipedia.org/wiki/Lista_de_adyacencia"> Véase la descripción de una lista
      * de adyacencia en el siguiente artículo.</a>
      */
     @Override
@@ -223,8 +223,8 @@ public class GrafoNoDirigido implements Grafo {
      * Téngase en cuenta que para mayor clara interpretación se ha optado por imprimir los valores de la matriz como
      * 0 (falso) y 1 (verdadero).
      * @param matrix Matriz booleana a imprimir por pantalla (incidencia o adyacencia).
-     * @see: {@link GrafoNoDirigido#convertMatrizAdyacencia()}
-     * @see: {@link GrafoNoDirigido#convertirMatrizIncidencia()}
+     * @see  GrafoNoDirigido#convertMatrizAdyacencia()
+     * @see  GrafoNoDirigido#convertirMatrizIncidencia()
      */
     @Override
     public void mostrarMatriz(boolean[][] matrix) {
@@ -239,7 +239,7 @@ public class GrafoNoDirigido implements Grafo {
     /**
      * Metodo para imprimir por pantalla la lista de adyacencia.
      * @param adyacencias Lista de adyacencia a mostrar por pantalla.
-     * @see: {@link GrafoNoDirigido#listaAdyacencia()}
+     * @see GrafoNoDirigido#listaAdyacencia()
      */
     @Override
     public void mostrarLista(HashMap<Integer, HashSet<Integer>> adyacencias) {
@@ -255,7 +255,7 @@ public class GrafoNoDirigido implements Grafo {
     /**
      * Metodo para mostrar la secuencia de los grados de cada vértice por pantalla.
      * @param grados La secuencia de los grados de cada vértice.
-     * @see: {@link GrafoNoDirigido#listaGrados()}
+     * @see GrafoNoDirigido#listaGrados()
      */
     @Override
     public void mostrarGrados(ArrayList<Integer> grados) {
@@ -271,7 +271,7 @@ public class GrafoNoDirigido implements Grafo {
      * Para ello devuelve una cadena de texto según el resultado.
      * @param fuente Vértice de partida para la búsqueda.
      * @return Cadena de texto que contendrá si el grafo es o no conexo.
-     * @see: <a href = "https://es.wikipedia.org/wiki/B%C3%BAsqueda_en_anchura"> El siguiente artículo explica en
+     * @see <a href = "https://es.wikipedia.org/wiki/B%C3%BAsqueda_en_anchura"> El siguiente artículo explica en
      * profundidad el algoritmo.</a>
      */
     @Override
@@ -329,7 +329,7 @@ public class GrafoNoDirigido implements Grafo {
      * Para ello devuelve una cadena de texto según el resultado.
      * @param fuente Vértice de partida para la búsqueda.
      * @return Cadena de texto que contendrá si el grafo es o no conexo.
-     * @see: <a href = "https://es.wikipedia.org/wiki/B%C3%BAsqueda_en_profundidad"> El siguiente artículo explica en
+     * @see <a href = "https://es.wikipedia.org/wiki/B%C3%BAsqueda_en_profundidad"> El siguiente artículo explica en
      * profundidad el algoritmo.</a>
      */
     @Override
