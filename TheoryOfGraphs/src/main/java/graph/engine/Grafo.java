@@ -17,7 +17,7 @@ public interface Grafo<T> {
 
     public void setVertices(HashSet<Integer> vertices);
 
-    public void setAristas(HashMap<Integer, HashSet<Integer>> aristas);
+    public void setAristas(HashMap<Integer, HashSet<T>> aristas);
 
     public int totalAristas();
 
