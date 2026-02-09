@@ -9,11 +9,11 @@ import java.util.*;
  * @see graph.undirected.GrafoNoDirigido
  * @see graph.directed.DiGrafo
  */
-public interface Grafo {
+public interface Grafo<T> {
 
     public HashSet<Integer> getVertices();
 
-    public HashMap<Integer, HashSet<Integer>> getAristas();
+    public HashMap<Integer, HashSet<T>> getAristas();
 
     public void setVertices(HashSet<Integer> vertices);
 
