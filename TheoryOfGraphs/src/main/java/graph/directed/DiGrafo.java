@@ -67,7 +67,6 @@ public class DiGrafo implements Grafo {
      * @return El conteo total de las aristas dentro del grafo.
      */
     @Override
-    // Metodo para averiguar el número total de aristas en el grafo.
     public int totalAristas() {
         int sum = 0;
 
