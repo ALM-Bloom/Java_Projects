@@ -4,3 +4,6 @@
 *.lst
 *.class
 *.class
+# IntelliJ / IDEA
+.idea/
+*.iml
