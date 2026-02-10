@@ -267,4 +267,24 @@ public class DiGrafoPonderado implements Grafo<Arista> {
     public String DFS(int fuente) {
         return "TODO";
     }
+
+    /**
+     * Metodo que realiza la conversión a una matriz de costos, en cada posición de la matriz se encuentra el peso
+     * de la arista que conecta ambos vértices, o un valor infinito (0) en caso de que no exista conexión entre sendos
+     * vértices.
+     * @return Un arreglo de dos dimensiones que corresponde a la matriz de costes del grafo.
+     */
+    public double[][] convertirMatrizCostos() {
+        // Tamaño de la matriz será Nº vértices x Nº vértices
+        int dimension = vertices.size();
+        double[][] matriz_costos = new double[dimension][dimension];
+
+        for (int i = 0; i < vertices.size(); i++) {
+            HashSet<Arista> nodos = aristas.get(i);
+            for (Arista j : nodos) {
+                matriz_costos[i][j.getDestino()] = j.getPeso();
+            }
+        }
+        return matriz_costos;
+    }
 }
