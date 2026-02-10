@@ -105,4 +105,20 @@ class DiGrafoPonderadoTest {
         assertEquals(elemento_lista, grafo.listaAdyacencia(),
                 "La lista de adyacencia del grafo ponderado no coincide con la esperada.");
     }
+
+    @Test
+    void test_matrizCostos() {
+        DiGrafoPonderado grafo = grafoPonderado();
+        double[][] matriz_costos = new double[][] {
+                {0.0, 2.5, 0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 3.0, 0.0, 4.5, 0.0},
+                {0.0, 0.0, 0.0, 0.0, 0.0, 1.5},
+                {2.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+                {3.5, 0.0, 0.0, 0.0, 0.0, 0.0},
+                {2.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+        };
+
+        assertArrayEquals(matriz_costos, grafo.convertirMatrizCostos(),
+                "La matriz de costos del grafo ponderado no coincide con la esperada.");
+    }
 }
