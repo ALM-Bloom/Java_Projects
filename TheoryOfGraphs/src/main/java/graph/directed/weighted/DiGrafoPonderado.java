@@ -218,6 +218,19 @@ public class DiGrafoPonderado implements GrafoPonderado {
     }
 
     /**
+     * Metodo para imprimir por pantalla la matriz de costos del grafo.
+     * @param matrix Matriz de costos a imprimir por pantalla.
+     */
+    public void MostrarMatrizCostos(double[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    /**
      * Metodo para imprimir por pantalla la lista de adyacencia.
      * @param adyacencias Lista de adyacencia a mostrar por pantalla.
      * @see DiGrafoPonderado#listaAdyacencia()
