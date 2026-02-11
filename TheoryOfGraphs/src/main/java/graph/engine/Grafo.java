@@ -9,15 +9,15 @@ import java.util.*;
  * @see graph.undirected.GrafoNoDirigido
  * @see graph.directed.DiGrafo
  */
-public interface Grafo<T> {
+public interface Grafo {
 
     public HashSet<Integer> getVertices();
 
-    public HashMap<Integer, HashSet<T>> getAristas();
+    public HashMap<Integer, HashSet<Integer>> getAristas();
 
     public void setVertices(HashSet<Integer> vertices);
 
-    public void setAristas(HashMap<Integer, HashSet<T>> aristas);
+    public void setAristas(HashMap<Integer, HashSet<Integer>> aristas);
 
     public int totalAristas();
 
