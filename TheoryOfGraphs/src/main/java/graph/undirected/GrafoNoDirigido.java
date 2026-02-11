@@ -14,7 +14,7 @@ import java.util.*;
  * @version 22/12/2025/A
  * @see  graph.engine.Grafo
  */
-public class GrafoNoDirigido implements Grafo<Integer> {
+public class GrafoNoDirigido implements Grafo {
 
     private HashSet<Integer> vertices;
     private HashMap<Integer, HashSet<Integer>> aristas;
