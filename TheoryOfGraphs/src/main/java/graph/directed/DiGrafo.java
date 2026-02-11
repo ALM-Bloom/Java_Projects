@@ -4,7 +4,7 @@ import graph.engine.Grafo;
 
 import java.util.*;
 
-public class DiGrafo implements Grafo<Integer> {
+public class DiGrafo implements Grafo {
 
     private HashSet<Integer> vertices;
     private HashMap<Integer, HashSet<Integer>> aristas;
