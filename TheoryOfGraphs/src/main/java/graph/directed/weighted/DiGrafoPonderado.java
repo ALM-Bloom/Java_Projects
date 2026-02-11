@@ -254,7 +254,50 @@ public class DiGrafoPonderado implements GrafoPonderado {
      */
     @Override
     public String BFS(int fuente) {
-        return "TODO";
+        HashMap<Integer, HashSet<Integer>> list_adyacencia = listaAdyacencia();
+        Queue<Integer> no_visitados = new LinkedList<>();
+        String text_visual = "";
+        no_visitados.add(fuente);
+
+        HashSet<Integer> visitados = new HashSet<>();
+        visitados.add(fuente);
+
+        text_visual = text_visual + (fuente + 1) + "\n";
+
+        int cont = 0;
+        // Comienzo del algoritmo BFS
+        while (!no_visitados.isEmpty()) {
+            int vert_ext = no_visitados.poll();
+
+            // Ajustes para la visualización
+            System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + (vert_ext + 1));
+            ArrayList<Integer> visualizacion = new ArrayList<>();
+            // -----------------------------
+
+            for (int vertice : list_adyacencia.get(vert_ext)) {
+                if (!visitados.contains(vertice)) {
+                    visitados.add(vertice);
+                    no_visitados.add(vertice);
+                    visualizacion.add(vertice);
+                }
+            }
+
+            // Visualización iterativa del recorrido
+            if (!visualizacion.isEmpty()) {
+                for (int i = 0; i < visualizacion.size(); i++) {
+                    text_visual = text_visual + (visualizacion.get(i) + 1) + "    ";
+                }
+                text_visual = text_visual +  " padre de los nodos: " + (vert_ext + 1) + "\n";
+            }
+            System.out.println(text_visual);
+            cont++;
+        }
+
+        if (visitados.containsAll(vertices)) {
+            return "BFS Finalizado | El grafo es conexo";
+        }
+
+        return "BFS Finalizado | El grafo no es conexo";
     }
 
     /**
@@ -266,7 +309,49 @@ public class DiGrafoPonderado implements GrafoPonderado {
      */
     @Override
     public String DFS(int fuente) {
-        return "TODO";
+        HashMap<Integer, HashSet<Integer>> list_adyacencia = listaAdyacencia();
+        Stack<Integer> no_visitados = new Stack<>();
+        String text_visual = "";
+        no_visitados.add(fuente);
+
+        HashSet<Integer> visitados = new HashSet<>();
+        visitados.add(fuente);
+
+        int cont = 0;
+        while (!no_visitados.empty()) {
+            int vert_ext = no_visitados.pop();
+
+            // Ajustes para la visualización
+            System.out.println("ITERACIÓN " + cont + " | Vértice siendo analizado: " + (vert_ext + 1));
+            ArrayList<Integer> visualizacion = new ArrayList<>();
+            // -----------------------------
+
+            // Para introducir los vértices en la pila de izquierda-derecha
+            List<Integer> lista = new ArrayList<>(list_adyacencia.get(vert_ext));
+            Collections.reverse(lista);
+
+            for (int vertice : lista) {
+                if (!visitados.contains(vertice)) {
+                    no_visitados.add(vertice);
+                    visitados.add(vertice);
+                }
+            }
+
+            visualizacion.add(vert_ext);
+            // Visualización iterativa del recorrido
+            for (int i = 0; i < visualizacion.size(); i++) {
+                text_visual = text_visual + (visualizacion.get(i) + 1) + "    ";
+            }
+            text_visual = text_visual + "\n";
+            System.out.println(text_visual);
+            cont++;
+        }
+
+        if (visitados.containsAll(vertices)) {
+            return "DFS Finalizado | Desde el vértice de partida " + fuente + " el grafo es conexo";
+        }
+
+        return "DFS Finalizado | Desde el vértice de partida " + fuente + " el grafo no es conexo";
     }
 
     /**
