@@ -4,10 +4,11 @@ package graph.directed.weighted;
 import graph.directed.DiGrafo;
 import graph.engine.Arista;
 import graph.engine.Grafo;
+import graph.engine.GrafoPonderado;
 
 import java.util.*;
 
-public class DiGrafoPonderado implements Grafo<Arista> {
+public class DiGrafoPonderado implements GrafoPonderado {
 
     HashSet<Integer> vertices;
     HashMap<Integer, HashSet<Arista>> aristas;
