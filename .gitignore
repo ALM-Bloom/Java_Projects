@@ -1,5 +1,6 @@
 .vscode
 *.xml
+!pom.xml # Ignorar todos los archivos XML excepto pom.xml
 *.class
 *.lst
 *.class
