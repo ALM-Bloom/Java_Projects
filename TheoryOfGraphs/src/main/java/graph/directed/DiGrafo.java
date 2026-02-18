@@ -1,5 +1,6 @@
 package graph.directed;
 
+import graph.engine.Arista;
 import graph.engine.Grafo;
 
 import java.util.*;
@@ -24,6 +25,61 @@ public class DiGrafo implements Grafo {
     public DiGrafo(HashSet<Integer> vertices, HashMap<Integer, HashSet<Integer>> aristas) {
         this.vertices = vertices;
         this.aristas = aristas;
+    }
+
+    /**
+     * Método para construir el grafo a partir de la lectura de vértices y aristas.
+     */
+    @Override
+    public void crearGrafo() {
+        Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
+
+        System.out.println("Introduzca número de vértices");
+        int num_vertices = scanner.nextInt();
+
+        HashSet<Integer> vertices = new HashSet<>();
+        for (int i = 0; i < num_vertices; i++) {
+            vertices.add(i);
+        }
+
+        System.out.println("¡Vértices Introducidos!\n");
+        System.out.println("Para introducir las aristas y conectarlas seguirá el siguiente procedimiento:\n" +
+                "Iterará sobre los vértices comenzando desde el primero ('1'), e introducirá el vértice que" +
+                " desea que sea adyacente. Para continuar al siguiente vértice podrá introducir 's'.");
+
+        HashMap<Integer, HashSet<Integer>> aristas = new HashMap<>();
+        HashMap<Integer, Integer> vert_introducidos;
+        int cont = 0;
+        while (cont < num_vertices) {
+            System.out.println("Se encuentra en el vértice " + (cont + 1));
+            System.out.println("Introduzca el vértice adyacente a " + (cont + 1) + " pase al siguiente introduciendo 's'." +
+                    " O finalice la construcción con 'h'");
+
+            String option = scanner.next();
+            option = option.toLowerCase();
+
+            if (option.equals("s")) {
+                cont++;
+            } else if (option.equals("h")) {
+                break;
+            } else {
+                int vert_ady = Integer.parseInt(option) - 1;
+                if (vert_ady < 0 || vert_ady >= num_vertices) {
+                    throw new IllegalArgumentException("Vértice introducido no incluido en el grafo");
+                }
+                aristas.putIfAbsent(cont, new HashSet<>());
+                if (aristas.get(cont).contains(vert_ady)) {
+                    System.out.println("El vértice " + (cont + 1) + " ya se encuentra adyacente a " + (vert_ady + 1) +
+                            ". Introduzca otro, por favor.\n");
+                    continue;
+                }
+                aristas.get(cont).add(vert_ady);
+                System.out.println("El vértice " + (cont + 1) + " ahora es adyacente a " + (vert_ady + 1) + "\n");
+            }
+        }
+        this.aristas = aristas;
+        this.vertices = vertices;
     }
 
     /**
@@ -349,9 +405,9 @@ public class DiGrafo implements Grafo {
         }
 
         if (visitados.containsAll(vertices)) {
-            return "DFS Finalizado | Desde el vértice de partida " + fuente + " el grafo es conexo";
+            return "DFS Finalizado | Desde el vértice de partida " + (fuente + 1) + " el grafo es conexo";
         }
 
-        return "DFS Finalizado | Desde el vértice de partida " + fuente + " el grafo no es conexo";
+        return "DFS Finalizado | Desde el vértice de partida " + (fuente + 1) + " el grafo no es conexo";
     }
 }
