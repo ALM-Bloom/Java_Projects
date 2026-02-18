@@ -37,4 +37,6 @@ public interface GrafoPonderado {
     public String DFS(int fuente);
 
     public double[][] convertirMatrizCostos();
+
+    public void crearGrafo();
 }
