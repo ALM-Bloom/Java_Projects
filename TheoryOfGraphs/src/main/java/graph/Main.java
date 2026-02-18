@@ -1,10 +1,15 @@
 package graph;
 
+import graph.directed.DiGrafo;
+import graph.directed.weighted.DiGrafoPonderado;
+import graph.engine.Arista;
 import graph.engine.Grafo;
+import graph.engine.GrafoPonderado;
 import graph.undirected.GrafoNoDirigido;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -20,55 +25,29 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println("¿El grafo es ponderado? (s/n)");
         Scanner scanner = new Scanner(System.in);
+        String ponderado = scanner.nextLine();
+        ponderado = ponderado.toLowerCase();
+        System.out.println("El grafo es dirigido o no dirigido? (d/n)");
+        String dirigido = scanner.nextLine();
+        dirigido = dirigido.toLowerCase();
 
-        System.out.println("Introduzca número de vértices");
-        int num_vertices = scanner.nextInt();
+        Grafo grafo = new GrafoNoDirigido();
+        GrafoPonderado grafo_ponderado = new DiGrafoPonderado();
 
-        HashSet<Integer> vertices = new HashSet<>();
-        for (int i = 0; i < num_vertices; i++) {
-            vertices.add(i);
+        if (dirigido.equals("d") && ponderado.equals("s")) {
+            grafo_ponderado = new DiGrafoPonderado();
+            grafo_ponderado.crearGrafo();
+        } else if (dirigido.equals("d") && ponderado.equals("n")) {
+            grafo = new DiGrafo();
+            grafo.crearGrafo();
+        } else if (dirigido.equals("n") && ponderado.equals("s")) {
+            // TODO: Implementar grafo no dirigido ponderado
+        } else if (dirigido.equals("n") && ponderado.equals("n")) {
+            grafo = new GrafoNoDirigido();
+            grafo.crearGrafo();
         }
-
-        System.out.println("¡Vértices Introducidos!\n");
-        System.out.println("Para introducir las aristas y conectarlas seguirá el siguiente procedimiento:\n" +
-                "Iterará sobre los vértices comenzando desde el primero ('1'), e introducirá el vértice que" +
-                " desea que sea adyacente. Para continuar al siguiente vértice podrá introducir 's'.");
-
-        HashMap<Integer, HashSet<Integer>> aristas = new HashMap<>();
-        HashMap<Integer, Integer> vert_introducidos;
-        int cont = 0;
-        while (cont < num_vertices) {
-            System.out.println("Se encuentra en el vértice " + (cont + 1));
-            System.out.println("Introduzca el vértice adyacente a " + (cont + 1) + " pase al siguiente introduciendo 's'." +
-                    " O finalice la construcción con 'h'");
-
-            String option = scanner.next();
-            option = option.toLowerCase();
-
-            if (option.equals("s")) {
-                cont++;
-            }
-            else if (option.equals("h")) {
-                break;
-            } else {
-                int vert_ady = Integer.parseInt(option) - 1;
-                if (vert_ady < 0 || vert_ady >= num_vertices) {
-                    throw new IllegalArgumentException("Vértice introducido no incluido en el grafo");
-                }
-                aristas.putIfAbsent(cont, new HashSet<>());
-                if (aristas.get(cont).contains(vert_ady)) {
-                    System.out.println("El vértice " + (cont + 1) + " ya se encuentra adyacente a " + (vert_ady + 1) +
-                            ". Introduzca otro, por favor.\n");
-                    continue;
-                }
-                aristas.get(cont).add(vert_ady);
-                System.out.println("El vértice " + (cont + 1) + " ahora es adyacente a " + (vert_ady + 1) + "\n");
-            }
-        }
-
-        // Construcción del Grafo
-        Grafo grafoNoDirigido = new GrafoNoDirigido(vertices, aristas);
 
         // Menú de Selección de Visualización
         System.out.println("El Grafo ha sido construido. Seleccione que desea visualizar a partir del menú.\n");
@@ -76,44 +55,83 @@ public class Main {
         while (!exit) {
 
             System.out.println("""
-                |Menu de Selección de Visualización|:
-                 1) Matriz de Adyacencia
-                 2) Matriz de Incidencia
-                 3) Secuencia de Grados
-                 4) Lista de Adyacencia
-                 5) Recorrido BFS
-                 6) Recorrido DFS
-                 7) Salir""");
+                    |Menu de Selección de Visualización|:
+                     1) Matriz de Adyacencia
+                     2) Matriz de Incidencia
+                     3) Secuencia de Grados
+                     4) Lista de Adyacencia
+                     5) Recorrido BFS
+                     6) Recorrido DFS
+                    \s""");
 
+            if (ponderado.equals("s")) {
+                System.out.println("""
+                        7) Matriz de Costos
+                        8) Salir""");
+            } else {
+                System.out.println("7) Salir");
+            }
             int option = scanner.nextInt();
-            switch (option) {
-                case 1:
-                    grafoNoDirigido.mostrarMatriz(grafoNoDirigido.convertMatrizAdyacencia());
-                    break;
-                case 2:
-                    grafoNoDirigido.mostrarMatriz(grafoNoDirigido.convertirMatrizIncidencia());
-                    break;
-                case 3:
-                    grafoNoDirigido.mostrarGrados(grafoNoDirigido.listaGrados());
-                    break;
-                case 4:
-                    grafoNoDirigido.mostrarLista(grafoNoDirigido.listaAdyacencia());
-                    break;
-                case 5:
-                    System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
-                    int fuente = scanner.nextInt() - 1;
-                    System.out.println(grafoNoDirigido.BFS(fuente));
-                    break;
-                case 6:
-                    System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
-                    int fuente_dfs = scanner.nextInt() - 1;
-                    System.out.println(grafoNoDirigido.DFS(fuente_dfs));
-                    break;
-                case 7:
-                    exit = true;
-                    break;
+            if (!ponderado.equals("s")) {
+                switch (option) {
+                    case 1:
+                        grafo.mostrarMatriz(grafo.convertMatrizAdyacencia());
+                        break;
+                    case 2:
+                        grafo.mostrarMatriz(grafo.convertirMatrizIncidencia());
+                        break;
+                    case 3:
+                        grafo.mostrarGrados(grafo.listaGrados());
+                        break;
+                    case 4:
+                        grafo.mostrarLista(grafo.listaAdyacencia());
+                        break;
+                    case 5:
+                        System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
+                        int fuente = scanner.nextInt() - 1;
+                        System.out.println(grafo.BFS(fuente));
+                        break;
+                    case 6:
+                        System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
+                        int fuente_dfs = scanner.nextInt() - 1;
+                        System.out.println(grafo.DFS(fuente_dfs));
+                        break;
+                    case 7:
+                        exit = true;
+                        break;
+                }
+            } else {
+                switch (option) {
+                    case 1:
+                        grafo_ponderado.mostrarMatriz(grafo_ponderado.convertMatrizAdyacencia());
+                        break;
+                    case 2:
+                        grafo_ponderado.mostrarMatriz(grafo_ponderado.convertirMatrizIncidencia());
+                        break;
+                    case 3:
+                        grafo_ponderado.mostrarGrados(grafo_ponderado.listaGrados());
+                        break;
+                    case 4:
+                        grafo_ponderado.mostrarLista(grafo_ponderado.listaAdyacencia());
+                        break;
+                    case 5:
+                        System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
+                        int fuente = scanner.nextInt() - 1;
+                        System.out.println(grafo_ponderado.BFS(fuente));
+                        break;
+                    case 6:
+                        System.out.println("Seleccione la raíz de búsqueda (Vértice de partida en la búsqueda)");
+                        int fuente_dfs = scanner.nextInt() - 1;
+                        System.out.println(grafo_ponderado.DFS(fuente_dfs));
+                        break;
+                    case 7:
+                        grafo_ponderado.MostrarMatrizCostos(grafo_ponderado.convertirMatrizCostos());
+                        break;
+                    case 8:
+                        exit = true;
+                        break;
                 }
             }
         }
-
     }
+}
