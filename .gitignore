@@ -4,8 +4,7 @@
 !pom.xml
 *.class
 *.lst
-*.class
-*.class
+target/
 # IntelliJ / IDEA
 .idea/
 *.iml
