@@ -22,14 +22,79 @@ public class DiGrafoPonderado implements GrafoPonderado {
 
     /**
      * Constructor general para el Grafo Ponderado
+     *
      * @param vertices el conjunto de vértices del grafo
-     * @param aristas el conjunto de aristas del grafo, donde cada arista lleva adjunto su peso.
-     *                Es decir, el HashMap lo conforma un trío de elementos: el vértice de origen,
-     *                el vértice de destino y el peso de la arista.
+     * @param aristas  el conjunto de aristas del grafo, donde cada arista lleva adjunto su peso.
+     *                 Es decir, el HashMap lo conforma un trío de elementos: el vértice de origen,
+     *                 el vértice de destino y el peso de la arista.
      */
     public DiGrafoPonderado(HashSet<Integer> vertices, HashMap<Integer, HashSet<Arista>> aristas) {
         this.vertices = vertices;
         this.aristas = aristas;
+    }
+
+    /**
+     * Método para crear un grafo ponderado a partir de la lectura de vértices y aristas, donde cada arista lleva adjunto su peso.
+     */
+    @Override
+    public void crearGrafo() {
+
+        Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
+
+        System.out.println("Introduzca número de vértices");
+        int num_vertices = scanner.nextInt();
+
+        HashSet<Integer> vertices = new HashSet<>();
+        for (int i = 0; i < num_vertices; i++) {
+            vertices.add(i);
+        }
+
+        System.out.println("¡Vértices Introducidos!\n");
+        System.out.println("Para introducir las aristas y conectarlas seguirá el siguiente procedimiento:\n" +
+                "Iterará sobre los vértices comenzando desde el primero ('1'), e introducirá el vértice que" +
+                " desea que sea adyacente, seguido del peso de la arista. Para continuar al siguiente vértice podrá introducir 's'.");
+
+        HashMap<Integer, HashSet<Arista>> aristas_ponderadas = new HashMap<>();
+
+        int cont = 0;
+        while (cont < num_vertices) {
+            System.out.println("Se encuentra en el vértice " + (cont + 1));
+            System.out.println("Introduzca el vértice adyacente a " + (cont + 1) + " pase al siguiente introduciendo 's'." +
+                    " O finalice la construcción con 'h'");
+
+            String option = scanner.next();
+            option = option.toLowerCase();
+
+            if (option.equals("s")) {
+                cont++;
+            } else if (option.equals("h")) {
+                break;
+            } else {
+                int vert_ady = Integer.parseInt(option) - 1;
+                if (vert_ady < 0 || vert_ady >= num_vertices) {
+                    throw new IllegalArgumentException("Vértice introducido no incluido en el grafo");
+                }
+                System.out.println("Introduzca el peso de la arista entre " + (cont + 1) + " y " + (vert_ady + 1)
+                        + " Recuerde que el peso no puede ser 0 ni negativo.");
+                double peso = Double.parseDouble(scanner.next().replace(",", "."));
+                if (peso <= 0) {
+                    throw new IllegalArgumentException("El peso introducido es inválido. " +
+                            "El peso de una arista debe ser un número positivo mayor que cero.");
+                }
+                aristas_ponderadas.putIfAbsent(cont, new HashSet<>());
+                if (aristas_ponderadas.get(cont).contains(vert_ady)) {
+                    System.out.println("El vértice " + (cont + 1) + " ya se encuentra adyacente a " + (vert_ady + 1) +
+                            ". Introduzca otro, por favor.\n");
+                    continue;
+                }
+                aristas_ponderadas.get(cont).add(new Arista(vert_ady, peso));
+                System.out.println("El vértice " + (cont + 1) + " ahora es adyacente a " + (vert_ady + 1) +
+                        " con peso " + peso + "\n");
+            }
+        }
+        this.vertices = vertices;
+        this.aristas = aristas_ponderadas;
     }
 
     /**
