@@ -38,5 +38,7 @@ public interface Grafo {
     public String BFS(int fuente);
 
     public String DFS(int fuente);
+
+    public void crearGrafo();
 }
 
