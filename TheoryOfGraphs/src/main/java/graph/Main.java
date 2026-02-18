@@ -7,10 +7,13 @@ import graph.engine.Grafo;
 import graph.engine.GrafoPonderado;
 import graph.undirected.GrafoNoDirigido;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Código correspondiente a la parte clientelar del proyecto.
@@ -25,36 +28,114 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("¿El grafo es ponderado? (s/n)");
         Scanner scanner = new Scanner(System.in);
-        String ponderado = scanner.nextLine();
-        ponderado = ponderado.toLowerCase();
-        System.out.println("El grafo es dirigido o no dirigido? (d/n)");
-        String dirigido = scanner.nextLine();
-        dirigido = dirigido.toLowerCase();
-
         Grafo grafo = new GrafoNoDirigido();
         GrafoPonderado grafo_ponderado = new DiGrafoPonderado();
+        String ponderado = "error";
+        String dirigido = "error";
+        System.out.println("¿Desea cargar el grafo desde un fichero? (s/n)");
+        String opcion_fichero = scanner.nextLine();
+        opcion_fichero = opcion_fichero.toLowerCase();
 
-        if (dirigido.equals("d") && ponderado.equals("s")) {
-            grafo_ponderado = new DiGrafoPonderado();
-            grafo_ponderado.crearGrafo();
-        } else if (dirigido.equals("d") && ponderado.equals("n")) {
-            grafo = new DiGrafo();
-            grafo.crearGrafo();
-        } else if (dirigido.equals("n") && ponderado.equals("s")) {
-            // TODO: Implementar grafo no dirigido ponderado
-        } else if (dirigido.equals("n") && ponderado.equals("n")) {
-            grafo = new GrafoNoDirigido();
-            grafo.crearGrafo();
+        if (opcion_fichero.equals("n")) {
+// ------------ Lectura del Grafo Manual -----------
+            System.out.println("¿El grafo es ponderado? (s/n)");
+            ponderado = scanner.nextLine();
+            ponderado = ponderado.toLowerCase();
+            System.out.println("El grafo es dirigido o no dirigido? (d/n)");
+            dirigido = scanner.nextLine();
+            dirigido = dirigido.toLowerCase();
+
+            if (dirigido.equals("d") && ponderado.equals("s")) {
+                grafo_ponderado = new DiGrafoPonderado();
+                grafo_ponderado.crearGrafo();
+            } else if (dirigido.equals("d") && ponderado.equals("n")) {
+                grafo = new DiGrafo();
+                grafo.crearGrafo();
+            } else if (dirigido.equals("n") && ponderado.equals("s")) {
+                // TODO: Implementar grafo no dirigido ponderado
+            } else if (dirigido.equals("n") && ponderado.equals("n")) {
+                grafo = new GrafoNoDirigido();
+                grafo.crearGrafo();
+            }
         }
+// -----------------------------------------------------
+// ------------ Lectura del Grafo Por Fichero -----------
+        else {
+            try {
+                System.out.println("Introduzca el nombre del fichero (Por defecto: grafo1.gr)");
+                String nombre_fichero = scanner.nextLine();
+                if (nombre_fichero.isEmpty()) {
+                    nombre_fichero = "grafo1.gr";
+                }
+                String ruta = "grafos/" + nombre_fichero;
 
+                InputStream input = Main.class.getClassLoader().getResourceAsStream(ruta);
+                if (input == null) {
+                    throw new FileNotFoundException("El fichero '" + ruta + "' no se ha encontrado en resources/.");
+                }
+
+                Scanner scanner_fichero = new Scanner(input);
+                scanner_fichero.useLocale(Locale.US);
+
+                // ---- Tipo de Grafo (Prímera Línea) ----
+                ponderado = scanner_fichero.next(); // p o n
+                dirigido = scanner_fichero.next(); // d o u
+
+                // ---- Número de vértices (Segunda Línea) ----
+                int num_vertices = scanner_fichero.nextInt();
+                System.out.println("Número de vértices: " + num_vertices);
+                HashSet<Integer> vertices = new HashSet<>();
+                for (int i = 0; i < num_vertices; i++) {
+                    vertices.add(i);
+                }
+
+                HashMap<Integer, HashSet<Arista>> aristas_ponderadas = new HashMap<>();
+                HashMap<Integer, HashSet<Integer>> aristas = new HashMap<>();
+
+                // ---- Lectura de aristas (Tercera Línea en Adelante) ----
+                while (scanner_fichero.hasNext()) {
+                    int origen = scanner_fichero.nextInt() - 1;
+                    int destino = scanner_fichero.nextInt() - 1;
+                    double peso = 0.0;
+                    if (ponderado.equals("p")) {
+                        peso = scanner_fichero.nextDouble();
+                    }
+
+                    if (ponderado.equals("p")) {
+                        aristas_ponderadas.putIfAbsent(origen, new HashSet<>());
+                        aristas_ponderadas.get(origen).add(new Arista(destino, peso));
+                    } else {
+                        aristas.putIfAbsent(origen, new HashSet<>());
+                        aristas.get(origen).add(destino);
+                    }
+                }
+
+                scanner_fichero.close();
+
+                if (ponderado.equals("p") && dirigido.equals("d")) {
+                    grafo_ponderado = new DiGrafoPonderado(vertices, aristas_ponderadas);
+                } else if (ponderado.equals("p") && dirigido.equals("n")) {
+                    // TODO: Implementar grafo no dirigido ponderado
+                } else if (ponderado.equals("n") && dirigido.equals("d")) {
+                    grafo = new DiGrafo(vertices, aristas);
+                } else {
+                    grafo = new GrafoNoDirigido(vertices, aristas);
+                }
+
+                System.out.println("Grafo cargado correctamente desde fichero.\n");
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException("Error: El fichero especificado no se ha encontrado." +
+                        " Asegúrese de que el nombre del fichero es correcto y que se encuentra en el directorio adecuado.", e);
+            }
+        }
         // Menú de Selección de Visualización
         System.out.println("El Grafo ha sido construido. Seleccione que desea visualizar a partir del menú.\n");
         boolean exit = false;
         while (!exit) {
 
-            System.out.println("""
+            System.out.print("""
                     |Menu de Selección de Visualización|:
                      1) Matriz de Adyacencia
                      2) Matriz de Incidencia
@@ -62,17 +143,15 @@ public class Main {
                      4) Lista de Adyacencia
                      5) Recorrido BFS
                      6) Recorrido DFS
-                    \s""");
+                    """);
 
-            if (ponderado.equals("s")) {
-                System.out.println("""
-                        7) Matriz de Costos
-                        8) Salir""");
+            if (ponderado.equals("p")) {
+                System.out.println(" 7) Matriz de Costos\n" +  " 8) Salir");
             } else {
-                System.out.println("7) Salir");
+                System.out.println(" 7) Salir");
             }
             int option = scanner.nextInt();
-            if (!ponderado.equals("s")) {
+            if (!ponderado.equals("p")) {
                 switch (option) {
                     case 1:
                         grafo.mostrarMatriz(grafo.convertMatrizAdyacencia());
