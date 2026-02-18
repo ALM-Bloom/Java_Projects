@@ -2,6 +2,7 @@ package graph.directed.weighted;
 
 import graph.engine.Arista;
 import graph.engine.Grafo;
+import graph.engine.GrafoPonderado;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -120,5 +121,23 @@ class DiGrafoPonderadoTest {
 
         assertArrayEquals(matriz_costos, grafo.convertirMatrizCostos(),
                 "La matriz de costos del grafo ponderado no coincide con la esperada.");
+    }
+
+    @Test
+    void testBFS_GrafoNoConexo() {
+        DiGrafoPonderado grafo = grafoPonderado();
+
+        String resultado = grafo.BFS(0);
+
+        assertEquals("BFS Finalizado | El grafo es conexo", resultado);
+    }
+
+    @Test
+    void testDFS_GrafoNoConexo() {
+        DiGrafoPonderado grafo = grafoPonderado();
+
+        String resultado = grafo.DFS(0);
+
+        assertEquals("DFS Finalizado | Desde el vértice de partida 0 el grafo es conexo", resultado);
     }
 }
