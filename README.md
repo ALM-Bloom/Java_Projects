@@ -18,7 +18,7 @@ La Teoría de Grafos ha sido la rama que más encanto me ha producido dentro de 
 Es por ello que este proyecto trata de, primeramente definir la estructura grafo (tanto grafos no directos como digrafos), y tratar de implementar simuladores visuales de 
 algunas técnicas dentro de los grafos ponderados, conexos, etc.
 
-Hasta el momento de actualización de este Readme se pueden encontrar los dos tipos de búsqueda en grafos. Tanto BFS (en anchura), como DFS (en profundida).
+Hasta el momento de actualización de este Readme se pueden encontrar los dos tipos de búsqueda en grafos tanto planos como ponderados. Tanto BFS (en anchura), como DFS (en profundidad).
 
 Posteriormente, y tras la finalización del proyecto el siguiente objetivo será poder desarrollar una visualización más atractiva, además de desplegarlo en sistema web.
 
