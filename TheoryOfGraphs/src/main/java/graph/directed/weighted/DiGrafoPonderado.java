@@ -285,11 +285,17 @@ public class DiGrafoPonderado implements GrafoPonderado {
     /**
      * Metodo para imprimir por pantalla la matriz de costos del grafo.
      * @param matrix Matriz de costos a imprimir por pantalla.
+     * @see  DiGrafoPonderado#convertMatrizAdyacencia()
      */
+    @Override
     public void MostrarMatrizCostos(double[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == 0) {
+                    System.out.print(" ∞ ");
+                } else {
                 System.out.print(matrix[i][j] + " ");
+              }
             }
             System.out.println();
         }
@@ -438,6 +444,7 @@ public class DiGrafoPonderado implements GrafoPonderado {
      * vértices.
      * @return Un arreglo de dos dimensiones que corresponde a la matriz de costes del grafo.
      */
+    @Override
     public double[][] convertirMatrizCostos() {
         // Tamaño de la matriz será Nº vértices x Nº vértices
         int dimension = vertices.size();
